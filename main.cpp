@@ -30,6 +30,15 @@ int main(int argc, char* argv[]) {
   float a = 0;
   float b = 0;
 
+  // While statment stores values into variables a/b and sends them to Vect 2
+  // and stores the values in the array.
+  while (!input_file_stream.eof()) {
+    input_file_stream >> a;
+    input_file_stream >> b;
+    points[current_point].setX(a);
+    points[current_point].setY(b);
+    current_point++;
+  }
   // Float min a/b max a/b are indexes used in for loop statement line 53
   int min_a = 0;
   int min_b = 1;
@@ -40,35 +49,24 @@ int main(int argc, char* argv[]) {
   float max = 0;
   float min = 0;
 
-  // While statment stores values into variables a/b and sends them to Vect 2
-  // and stores the values in the array.
-  while (!input_file_stream.eof()) {
-    input_file_stream >> a;
-    input_file_stream >> b;
-    points[current_point] = Vect2(a, b);
-    current_point++;
-  }
-
   // Distance determines the distance for max values and min values
-  max = 0; //points[max_a].distance(points[max_b].x_, points[max_b].y_);
+  max = points[0].distance(points[1], points[0]);
   min = max;
   float d;
 
   // Runs a selction sort with a nested loop to determine largest and smallest
   // Values contained within the array of points.
-  for (int outer_loop_cnt = 0; outer_loop_cnt < (NUM_POINTS - 1);
-       outer_loop_cnt++) {
-    for (int inner_loop_cnt = (outer_loop_cnt + 1); inner_loop_cnt < NUM_POINTS;
-         inner_loop_cnt++) {
-        d = distance(&points[outer_loop_cnt], &points[inner_loop_cnt]);
+  for (int x = 0; x < (NUM_POINTS - 1); x++) {
+    for (int y = 1; y < NUM_POINTS; y++) {
+      d = distance(points[x], points[y]);
       if (d < min) {
-        min_a = outer_loop_cnt;
-        min_b = inner_loop_cnt;
+        min_a = x;
+        min_b = y;
         min = d;
       }
       if (d > max) {
-        max_a = outer_loop_cnt;
-        max_b = inner_loop_cnt;
+        max_a = x;
+        max_b = y;
         max = d;
       }
     }

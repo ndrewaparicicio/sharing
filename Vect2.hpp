@@ -12,13 +12,20 @@
 #ifndef _VECT2_HPP_
 #define _VECT2_HPP_
 
-
 class Vect2 {
+ private:
+  float x;
+  float y;
+
  public:
   float x_;
   float y_;
   Vect2();
-  Vect2(float x_, float y_);
+  Vect2(Vect2& other);
+  float getX();
+  float getY();
+  void setX(float x);
+  void setY(float y);
   auto distance(Vect2 a, Vect2 b) -> float;
   ~Vect2();
   std::ostream& write(std::ostream& out);
